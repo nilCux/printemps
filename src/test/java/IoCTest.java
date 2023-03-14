@@ -8,13 +8,11 @@ import org.nilcux.ioc.factory.SimpleBeanFactory;
 public class IoCTest {
     @Test
     public void test() {
-        BeanFactory beanFactory = new SimpleBeanFactory();
-        XMLBeanDefinitionReader xmlBeanDefinitionReader = new XMLBeanDefinitionReader(beanFactory);
         ClassPathXMLApplicationContext classPathXMLApplicationContext = new ClassPathXMLApplicationContext("beans.xml");
 
-        AService aService = null;
+        AService aService;
         try {
-            aService = (AService) classPathXMLApplicationContext.getBean("aService");
+            aService = (AService) classPathXMLApplicationContext.getBean("AService");
         } catch (BeanException e) {
             throw new RuntimeException(e);
         }
