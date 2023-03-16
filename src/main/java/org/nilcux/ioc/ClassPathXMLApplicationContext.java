@@ -2,15 +2,15 @@ package org.nilcux.ioc;
 
 
 import org.nilcux.exceptions.BeanException;
-import org.nilcux.ioc.factory.BeanFactory;
-import org.nilcux.ioc.factory.SimpleBeanFactory;
+import org.nilcux.ioc.beanFactory.BeanFactory;
+import org.nilcux.ioc.beanFactory.SimpleBeanFactory;
 
 public class ClassPathXMLApplicationContext implements BeanFactory{
     BeanFactory beanFactory;
 
     public ClassPathXMLApplicationContext(String fileName) {
         Resource resource = new ClassPathXMLResource(fileName);
-        BeanFactory beanFactory = new SimpleBeanFactory();
+        SimpleBeanFactory beanFactory = new SimpleBeanFactory();
         XMLBeanDefinitionReader reader = new XMLBeanDefinitionReader(beanFactory);
         reader.loadBeanDefinitions(resource);
         this.beanFactory = beanFactory;
@@ -22,7 +22,12 @@ public class ClassPathXMLApplicationContext implements BeanFactory{
     }
 
     @Override
-    public void registerBean(BeanDefinition beanDefinition) {
-        this.beanFactory.registerBean(beanDefinition);
+    public Boolean containsBean(String beanName) {
+        return beanFactory.containsBean(beanName);
+    }
+
+    @Override
+    public void registerBean(String beanName, Object bean) {
+        this.beanFactory.registerBean(beanName, bean);
     }
 }

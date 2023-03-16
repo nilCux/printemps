@@ -2,11 +2,12 @@ package org.nilcux.ioc;
 
 
 import org.dom4j.Element;
-import org.nilcux.ioc.factory.BeanFactory;
+import org.nilcux.ioc.beanFactory.BeanFactory;
+import org.nilcux.ioc.beanFactory.SimpleBeanFactory;
 
 public class XMLBeanDefinitionReader {
-    BeanFactory beanFactory;
-    public XMLBeanDefinitionReader(BeanFactory beanFactory) {
+    SimpleBeanFactory beanFactory;
+    public XMLBeanDefinitionReader(SimpleBeanFactory beanFactory) {
         this.beanFactory = beanFactory;
     }
     public void loadBeanDefinitions(Resource resource) {
@@ -15,7 +16,7 @@ public class XMLBeanDefinitionReader {
             String beanID = element.attributeValue("id");
             String beanClassName = element.attributeValue("class");
             BeanDefinition beanDefinition = new BeanDefinition(beanID, beanClassName);
-            this.beanFactory.registerBean(beanDefinition);
+            this.beanFactory.registerBeanDefinition(beanDefinition);
         }
     }
 }
